@@ -1,0 +1,125 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Form</title>
+     <!--<link rel="stylesheet" href="{% static 'style.css' %}">-->
+    <style>
+
+        body
+        {
+        background-color:#2e8b57;
+        }
+
+    </style>
+<script>
+
+        var branches = {
+        "Thiruvananthapuram": ["Attingal", "Pothencode", "Kattakkada","Varkala"],
+        "Pathanamthitta": ["Thiruvalla", "Adoor", "Pandalam","Konni"],
+        "Malappuram": ["Nilambur", "Perinthalmanna", "Edakkara","Kottakkal"],
+        "Ernakulam": ["Kochi", "Angamaly", "Thrippunithura","Kalamasseri"],
+        "Palakkad": ["Pattambi", "Ottappalam", "Mannarkad","Shornur"]
+        };
+
+
+        function updateBranches() {
+
+        var district = document.getElementById("district");
+        var branch = document.getElementById("branch");
+
+        branch.innerHTML = "";
+        var selectedDistrict = district.value;
+
+        var options = branches[selectedDistrict];
+
+        for (var i = 0; i < options.length; i++) {
+        var option = document.createElement("option");
+        option.value = options[i];
+        option.text = options[i];
+        branch.appendChild(option);
+        }
+        }
+
+
+
+function showPopup() {
+
+document.write("Your application was submitted");
+document.write("<a href='{% url "newapp:home"  %}'>This is a link</a>");
+
+}
+
+</script>
+</head>
+<body>
+
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+      {% if message.tags %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+      {% else %}
+          <li>{{ message }}</li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+<h3><center>Application Form</center></h3>
+  <br>
+<form action="#" method="POST" >
+        {% csrf_token %}
+       <input type ="text" name="name" placeholder="enter your name"><br>
+       <input type ="date" name="dob" placeholder="enter date of birth"><br>
+       <input type ="number" name="age" placeholder="enter your age"><br>
+       <input type ="radio" name="gender">Male<br>
+       <input type ="radio" name="gender">Female<br>
+      <input type ="tel" name="phoneno" placeholder="Phone number"><br>
+        <input type ="email" name="mailid" placeholder="Email"><br>
+        <input type ="text" name="address" placeholder="enter your address"><br><br>
+      District:
+            <select id="district" name="district" onchange="updateBranches()">
+            <option value="">Select district</option>
+                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="Pathanamthitta">Pathanamthitta</option>
+            <option value="Malappuram">Malappuram</option>
+            <option value="Ernakulam">Ernakulam</option>
+            <option value="Palakkad">Palakkad</option>
+            </select>
+            <br><br>
+            Branch:
+            <select id="branch" name="branch">
+            <option value="">Select branch</option>
+            </select>
+            <br>
+            <br>
+
+       Account type<br>
+      <input type="checkbox" name="accounttype">Savings account</br>
+      <input type="checkbox" name="accounttype">Current account</br>
+      <input type="checkbox" name="accounttype">Fixed deposit</br><br>
+       Materials provide<br>
+      <input type="checkbox" name="materials">Debit card</br>
+      <input type="checkbox" name="materials">Credit card</br>
+      <input type="checkbox" name="materials">Cheque book</br><br>
+
+<input type="submit" value="Submit" >
+<!--<input type="submit" value="Submit">-->
+    <a href="{% url 'newapp:logout' %}">Logout</a>
+
+
+
+  </form>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+{% extends 'home.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <h3></i>Register</h3>
+
+
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                {% if message.tags %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% else %}
+                    <li>{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+
+
+    <form action="{% url 'newapp:register'  %}" method="post">
+        {% csrf_token %}
+         <input type ="text" name="username" placeholder="username"><br>
+         <input type ="password" name="password" placeholder="enter your password"><br>
+         <input type ="password" name="password1" placeholder="confirm your password"><br>
+         <input type="submit">
+    </form>
+
+
+
+
+
+</body>
+</html>
+<style type="text/css">
+.messages {
+  list-style-type: none;
+  padding: 10px;
+}
+
+.error {
+  color: red;
+}
+
+.info {
+  color: blue;
+}
+</style>
+
+{% endblock %}
